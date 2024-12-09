@@ -4,14 +4,11 @@
 # Remove docker image:                                  docker rmi <image id>
 
 # Example
-# docker build -t thesis_docker .
-# docker run -it --rm thesis_docker bash
+# docker build -t thesis .
+# docker run -it --rm thesis bash
 
 # Pick operating system
 FROM ubuntu:20.04
-
-# Set the working directory
-WORKDIR /home/
 
 # General dependencies
 RUN apt-get update && apt-get upgrade && apt install nano
@@ -19,6 +16,3 @@ RUN apt-get update && apt-get upgrade && apt install nano
 RUN apt install python3 -y && apt install python3-pip -y
 # OpenAI dependencies
 RUN pip install openai
-
-# Docker's first command
-CMD ["echo", "Hello there"]
