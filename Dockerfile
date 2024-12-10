@@ -4,11 +4,15 @@
 # Remove docker image:                                  docker rmi <image id>
 
 # Example
-# docker build -t thesis .
-# docker run -it --rm thesis bash
+# docker build -t thesis . && docker run -it --rm -e OPENAI_API_KEY=$OPENAI_API_KEY thesis bash
 
 # Pick operating system
 FROM ubuntu:20.04
+
+# Pick working directory
+WORKDIR /root/
+
+COPY ./docker_files/ /root/
 
 # General dependencies
 RUN apt-get update && apt-get upgrade && apt install nano
