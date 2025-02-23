@@ -10,11 +10,12 @@ WORKDIR /root/
 # Copy important files
 COPY ./docker_files/ /root/
 
+# Set non-interactive mode to avoid prompts during apt-get
+ENV DEBIAN_FRONTEND=noninteractive
+
 # General dependencies
-RUN apt-get update && apt-get upgrade -y && apt-get install nano -y
-# Python dependencies
-RUN apt-get install python3.8 -y python3-pip -y
+RUN apt-get update && apt-get upgrade -y && apt-get install -y nano python3.8 python3-pip git && rm -rf /var/lib/apt/lists/*
 # OpenAI and Langchain dependencies
-RUN pip3 install openai==1.57.2 langchain==0.2.17 langchain-openai==0.1.25
+RUN pip3 install --no-cache-dir openai==1.64.0 langchain==0.2.17 langchain-openai==0.1.25 langchain-community==0.2.19 GitPython==3.1.44
 # Clean-up unnecessary files
 RUN apt-get clean
