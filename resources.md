@@ -14,5 +14,10 @@
 
 
 
+## LangGraph
+- [Introduction to LangGraph](https://www.youtube.com/watch?v=J5d1l6xgQBc)
+
+
+
 ## Papers
 - [Tree of Thoughts](https://arxiv.org/pdf/2305.10601)
