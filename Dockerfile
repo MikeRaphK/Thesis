@@ -12,8 +12,6 @@ WORKDIR /root/
 
 # General dependencies
 RUN apt-get update && apt-get upgrade -y && apt-get install -y nano python3.10 python3-pip git
-# Ensure Python 3.10 is the default
-RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.10 1
 # OpenAI and Langchain dependencies
 RUN pip3 install --no-cache-dir openai langchain langchain-openai langchain-community GitPython langgraph
 # Clean-up unnecessary files
