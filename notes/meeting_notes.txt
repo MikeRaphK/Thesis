@@ -1,0 +1,4 @@
+- Use prompt engineering instead of specific user message?
+- Use GitLoader as part of langgraph toolkit?
+- Reduce scope?
+- Push files back to GitHub? (might be unnecessary depending on our goal)
