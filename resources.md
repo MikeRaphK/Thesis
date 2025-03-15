@@ -27,3 +27,5 @@
 - [Current Challenges in Automatic Software Repair](https://www.cs.cmu.edu/~clegoues/docs/legoues-sqjo13.pdf)
 
 - [Automatic Software Repair: A Survey](https://ieeexplore.ieee.org/document/8089448)
+
+- [A Systematic Literature Review on Large Language Models for Automated Program Repair](https://arxiv.org/pdf/2405.01466)
