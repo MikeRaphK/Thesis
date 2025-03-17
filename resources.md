@@ -31,3 +31,6 @@
 - [A Systematic Literature Review on Large Language Models for Automated Program Repair](https://arxiv.org/pdf/2405.01466)
 
 - [AGENTLESS: Demystifying LLM-based Software Engineering Agents](https://arxiv.org/pdf/2407.01489)
+
+- [RepairAgent: An Autonomous, LLM-Based Agent for Program Repair](https://arxiv.org/pdf/2403.17134 )
+
