@@ -32,5 +32,8 @@
 
 - [AGENTLESS: Demystifying LLM-based Software Engineering Agents](https://arxiv.org/pdf/2407.01489)
 
-- [RepairAgent: An Autonomous, LLM-Based Agent for Program Repair](https://arxiv.org/pdf/2403.17134 )
+- [RepairAgent: An Autonomous, LLM-Based Agent for Program Repair](https://arxiv.org/pdf/2403.17134)
+
+- [Automated Program Repair via Conversation: Fixing 162 out of 337 Bugs for $0.42 Each using ChatGPT](https://dl.acm.org/doi/pdf/10.1145/3650212.3680323)
+
 
