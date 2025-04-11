@@ -1,0 +1,543 @@
+
+
+-----Localizing to suspicious files...
+Cloning repository from https://github.com/django/django.git to playground/65277131-7072-4e49-88e8-26a421490c1b/django...
+Repository cloned successfully.
+Checking out commit e7fd69d051eaa67cb17f172a39b57253e9cb831a in repository at playground/65277131-7072-4e49-88e8-26a421490c1b/django...
+Commit checked out successfully.
+Cloning repository from https://github.com/django/django.git to playground/6894fc60-e068-4a83-8b04-e32147761323/django...
+Repository cloned successfully.
+Checking out commit e7fd69d051eaa67cb17f172a39b57253e9cb831a in repository at playground/6894fc60-e068-4a83-8b04-e32147761323/django...
+Commit checked out successfully.
+Cloning repository from https://github.com/django/django.git to playground/24846686-e07e-40da-9477-1d300e5f84ce/django...
+Repository cloned successfully.
+Checking out commit e7fd69d051eaa67cb17f172a39b57253e9cb831a in repository at playground/24846686-e07e-40da-9477-1d300e5f84ce/django...
+Commit checked out successfully.
+Embedding Tokens: 0
+
+
+-----Localizing to related elements...
+Cloning repository from https://github.com/django/django.git to playground/d8d8ba05-3327-4e24-893d-4c59feeeabcb/django...
+Repository cloned successfully.
+Checking out commit e7fd69d051eaa67cb17f172a39b57253e9cb831a in repository at playground/d8d8ba05-3327-4e24-893d-4c59feeeabcb/django...
+Commit checked out successfully.
+
+
+-----Localizing to edit locations...
+Cloning repository from https://github.com/django/django.git to playground/08a43283-e73e-4604-97fa-61d52df97b0c/django...
+Repository cloned successfully.
+Checking out commit e7fd69d051eaa67cb17f172a39b57253e9cb831a in repository at playground/08a43283-e73e-4604-97fa-61d52df97b0c/django...
+Commit checked out successfully.
+
+
+-----Separating the individual sets of edit locations...
+
+
+-----Generating the patches...
+Cloning repository from https://github.com/django/django.git to playground/1a3bc02c-893b-4b78-97a8-04e620722777/django...
+Repository cloned successfully.
+Checking out commit e7fd69d051eaa67cb17f172a39b57253e9cb831a in repository at playground/1a3bc02c-893b-4b78-97a8-04e620722777/django...
+Commit checked out successfully.
+trying the 1-th sample ...
+--- django/core/files/storage.py
++++ django/core/files/storage.py
+@@ -257,7 +257,7 @@
+                 # This is a normal uploadedfile that we can stream.
+                 else:
+                     # The current umask value is masked out by os.open!
+-                    fd = os.open(full_path, self.OS_OPEN_FLAGS, 0o666)
++                    fd = os.open(full_path, self.OS_OPEN_FLAGS, 0o644)
+                     _file = None
+                     try:
+                         locks.lock(fd, locks.LOCK_EX)
+--- django/conf/global_settings.py
++++ django/conf/global_settings.py
+@@ -304,7 +304,7 @@
+ 
+ # The numeric mode to set newly-uploaded files to. The value should be a mode
+ # you'd pass directly to os.chmod; see https://docs.python.org/library/os.html#files-and-directories.
+-FILE_UPLOAD_PERMISSIONS = None
++FILE_UPLOAD_PERMISSIONS = 0o644
+ 
+ # The numeric mode to assign to newly-created directories, when uploading files.
+ # The value should be a mode as you'd pass to os.chmod;
+trying the 2-th sample ...
+--- django/conf/global_settings.py
++++ django/conf/global_settings.py
+@@ -304,7 +304,7 @@
+ 
+ # The numeric mode to set newly-uploaded files to. The value should be a mode
+ # you'd pass directly to os.chmod; see https://docs.python.org/library/os.html#files-and-directories.
+-FILE_UPLOAD_PERMISSIONS = None
++FILE_UPLOAD_PERMISSIONS = 0o644
+ 
+ # The numeric mode to assign to newly-created directories, when uploading files.
+ # The value should be a mode as you'd pass to os.chmod;
+--- django/core/files/storage.py
++++ django/core/files/storage.py
+@@ -257,7 +257,7 @@
+                 # This is a normal uploadedfile that we can stream.
+                 else:
+                     # The current umask value is masked out by os.open!
+-                    fd = os.open(full_path, self.OS_OPEN_FLAGS, 0o666)
++                    fd = os.open(full_path, self.OS_OPEN_FLAGS, settings.FILE_UPLOAD_PERMISSIONS or 0o666)
+                     _file = None
+                     try:
+                         locks.lock(fd, locks.LOCK_EX)
+trying the 3-th sample ...
+--- django/core/files/storage.py
++++ django/core/files/storage.py
+@@ -257,7 +257,7 @@
+                 # This is a normal uploadedfile that we can stream.
+                 else:
+                     # The current umask value is masked out by os.open!
+-                    fd = os.open(full_path, self.OS_OPEN_FLAGS, 0o666)
++                    fd = os.open(full_path, self.OS_OPEN_FLAGS, 0o644)
+                     _file = None
+                     try:
+                         locks.lock(fd, locks.LOCK_EX)
+--- django/conf/global_settings.py
++++ django/conf/global_settings.py
+@@ -304,7 +304,7 @@
+ 
+ # The numeric mode to set newly-uploaded files to. The value should be a mode
+ # you'd pass directly to os.chmod; see https://docs.python.org/library/os.html#files-and-directories.
+-FILE_UPLOAD_PERMISSIONS = None
++FILE_UPLOAD_PERMISSIONS = 0o644
+ 
+ # The numeric mode to assign to newly-created directories, when uploading files.
+ # The value should be a mode as you'd pass to os.chmod;
+trying the 4-th sample ...
+--- django/core/files/storage.py
++++ django/core/files/storage.py
+@@ -257,7 +257,7 @@
+                 # This is a normal uploadedfile that we can stream.
+                 else:
+                     # The current umask value is masked out by os.open!
+-                    fd = os.open(full_path, self.OS_OPEN_FLAGS, 0o666)
++                    fd = os.open(full_path, self.OS_OPEN_FLAGS, 0o644)
+                     _file = None
+                     try:
+                         locks.lock(fd, locks.LOCK_EX)
+--- django/conf/global_settings.py
++++ django/conf/global_settings.py
+@@ -304,7 +304,7 @@
+ 
+ # The numeric mode to set newly-uploaded files to. The value should be a mode
+ # you'd pass directly to os.chmod; see https://docs.python.org/library/os.html#files-and-directories.
+-FILE_UPLOAD_PERMISSIONS = None
++FILE_UPLOAD_PERMISSIONS = 0o644
+ 
+ # The numeric mode to assign to newly-created directories, when uploading files.
+ # The value should be a mode as you'd pass to os.chmod;
+trying the 5-th sample ...
+--- django/core/files/storage.py
++++ django/core/files/storage.py
+@@ -257,7 +257,7 @@
+                 # This is a normal uploadedfile that we can stream.
+                 else:
+                     # The current umask value is masked out by os.open!
+-                    fd = os.open(full_path, self.OS_OPEN_FLAGS, 0o666)
++                    fd = os.open(full_path, self.OS_OPEN_FLAGS, 0o644)
+                     _file = None
+                     try:
+                         locks.lock(fd, locks.LOCK_EX)
+--- django/conf/global_settings.py
++++ django/conf/global_settings.py
+@@ -304,7 +304,7 @@
+ 
+ # The numeric mode to set newly-uploaded files to. The value should be a mode
+ # you'd pass directly to os.chmod; see https://docs.python.org/library/os.html#files-and-directories.
+-FILE_UPLOAD_PERMISSIONS = None
++FILE_UPLOAD_PERMISSIONS = 0o644
+ 
+ # The numeric mode to assign to newly-created directories, when uploading files.
+ # The value should be a mode as you'd pass to os.chmod;
+trying the 6-th sample ...
+--- django/conf/global_settings.py
++++ django/conf/global_settings.py
+@@ -304,7 +304,7 @@
+ 
+ # The numeric mode to set newly-uploaded files to. The value should be a mode
+ # you'd pass directly to os.chmod; see https://docs.python.org/library/os.html#files-and-directories.
+-FILE_UPLOAD_PERMISSIONS = None
++FILE_UPLOAD_PERMISSIONS = 0o644
+ 
+ # The numeric mode to assign to newly-created directories, when uploading files.
+ # The value should be a mode as you'd pass to os.chmod;
+--- django/core/files/storage.py
++++ django/core/files/storage.py
+@@ -280,8 +280,9 @@
+                 # OK, the file save worked. Break out of the loop.
+                 break
+ 
+-        if self.file_permissions_mode is not None:
+-            os.chmod(full_path, self.file_permissions_mode)
++        file_permissions_mode = self.file_permissions_mode or settings.FILE_UPLOAD_PERMISSIONS
++        if file_permissions_mode is not None:
++            os.chmod(full_path, file_permissions_mode)
+ 
+         # Store filenames with forward slashes, even on Windows.
+         return name.replace('\\', '/')
+trying the 7-th sample ...
+--- django/core/files/storage.py
++++ django/core/files/storage.py
+@@ -257,7 +257,7 @@
+                 # This is a normal uploadedfile that we can stream.
+                 else:
+                     # The current umask value is masked out by os.open!
+-                    fd = os.open(full_path, self.OS_OPEN_FLAGS, 0o666)
++                    fd = os.open(full_path, self.OS_OPEN_FLAGS, self.file_permissions_mode if self.file_permissions_mode is not None else 0o644)
+                     _file = None
+                     try:
+                         locks.lock(fd, locks.LOCK_EX)
+--- django/conf/global_settings.py
++++ django/conf/global_settings.py
+@@ -304,7 +304,7 @@
+ 
+ # The numeric mode to set newly-uploaded files to. The value should be a mode
+ # you'd pass directly to os.chmod; see https://docs.python.org/library/os.html#files-and-directories.
+-FILE_UPLOAD_PERMISSIONS = None
++FILE_UPLOAD_PERMISSIONS = 0o644
+ 
+ # The numeric mode to assign to newly-created directories, when uploading files.
+ # The value should be a mode as you'd pass to os.chmod;
+trying the 8-th sample ...
+Initialized empty Git repository in /root/Agentless/playground/47ae0899-d6be-4e4b-9fac-e7f07a7ec416/.git/
+Initialized empty Git repository in /root/Agentless/playground/d394ef63-53f2-431d-9776-c8538f6b2690/.git/
+Initialized empty Git repository in /root/Agentless/playground/d66cde33-ffe1-42ec-9708-fa1bc5927111/.git/
+Initialized empty Git repository in /root/Agentless/playground/9b1800b5-e680-415c-8563-56cf91eb4d50/.git/
+Initialized empty Git repository in /root/Agentless/playground/bdbf4cdf-5250-42bf-84c4-eda4fa17f258/.git/
+--- django/core/files/storage.py
++++ django/core/files/storage.py
+@@ -257,7 +257,7 @@
+                 # This is a normal uploadedfile that we can stream.
+                 else:
+                     # The current umask value is masked out by os.open!
+-                    fd = os.open(full_path, self.OS_OPEN_FLAGS, 0o666)
++                    fd = os.open(full_path, self.OS_OPEN_FLAGS, self.file_permissions_mode or 0o644)
+                     _file = None
+                     try:
+                         locks.lock(fd, locks.LOCK_EX)
+--- django/conf/global_settings.py
++++ django/conf/global_settings.py
+@@ -304,7 +304,7 @@
+ 
+ # The numeric mode to set newly-uploaded files to. The value should be a mode
+ # you'd pass directly to os.chmod; see https://docs.python.org/library/os.html#files-and-directories.
+-FILE_UPLOAD_PERMISSIONS = None
++FILE_UPLOAD_PERMISSIONS = 0o644
+ 
+ # The numeric mode to assign to newly-created directories, when uploading files.
+ # The value should be a mode as you'd pass to os.chmod;
+trying the 9-th sample ...
+--- django/core/files/storage.py
++++ django/core/files/storage.py
+@@ -257,7 +257,7 @@
+                 # This is a normal uploadedfile that we can stream.
+                 else:
+                     # The current umask value is masked out by os.open!
+-                    fd = os.open(full_path, self.OS_OPEN_FLAGS, 0o666)
++                    fd = os.open(full_path, self.OS_OPEN_FLAGS, 0o644 if self.file_permissions_mode is None else self.file_permissions_mode)
+                     _file = None
+                     try:
+                         locks.lock(fd, locks.LOCK_EX)
+--- django/conf/global_settings.py
++++ django/conf/global_settings.py
+@@ -304,7 +304,7 @@
+ 
+ # The numeric mode to set newly-uploaded files to. The value should be a mode
+ # you'd pass directly to os.chmod; see https://docs.python.org/library/os.html#files-and-directories.
+-FILE_UPLOAD_PERMISSIONS = None
++FILE_UPLOAD_PERMISSIONS = 0o644
+ 
+ # The numeric mode to assign to newly-created directories, when uploading files.
+ # The value should be a mode as you'd pass to os.chmod;
+trying the 10-th sample ...
+--- django/core/files/storage.py
++++ django/core/files/storage.py
+@@ -257,7 +257,7 @@
+                 # This is a normal uploadedfile that we can stream.
+                 else:
+                     # The current umask value is masked out by os.open!
+-                    fd = os.open(full_path, self.OS_OPEN_FLAGS, 0o666)
++                    fd = os.open(full_path, self.OS_OPEN_FLAGS, 0o644)
+                     _file = None
+                     try:
+                         locks.lock(fd, locks.LOCK_EX)
+--- django/conf/global_settings.py
++++ django/conf/global_settings.py
+@@ -304,7 +304,7 @@
+ 
+ # The numeric mode to set newly-uploaded files to. The value should be a mode
+ # you'd pass directly to os.chmod; see https://docs.python.org/library/os.html#files-and-directories.
+-FILE_UPLOAD_PERMISSIONS = None
++FILE_UPLOAD_PERMISSIONS = 0o644
+ 
+ # The numeric mode to assign to newly-created directories, when uploading files.
+ # The value should be a mode as you'd pass to os.chmod;
+--- django/core/files/storage.py
++++ django/core/files/storage.py
+@@ -257,7 +257,7 @@
+                 # This is a normal uploadedfile that we can stream.
+                 else:
+                     # The current umask value is masked out by os.open!
+-                    fd = os.open(full_path, self.OS_OPEN_FLAGS, 0o666)
++                    fd = os.open(full_path, self.OS_OPEN_FLAGS, 0o644)
+                     _file = None
+                     try:
+                         locks.lock(fd, locks.LOCK_EX)
+--- django/conf/global_settings.py
++++ django/conf/global_settings.py
+@@ -304,7 +304,7 @@
+ 
+ # The numeric mode to set newly-uploaded files to. The value should be a mode
+ # you'd pass directly to os.chmod; see https://docs.python.org/library/os.html#files-and-directories.
+-FILE_UPLOAD_PERMISSIONS = None
++FILE_UPLOAD_PERMISSIONS = 0o644
+ 
+ # The numeric mode to assign to newly-created directories, when uploading files.
+ # The value should be a mode as you'd pass to os.chmod;
+--- django/conf/global_settings.py
++++ django/conf/global_settings.py
+@@ -304,7 +304,7 @@
+ 
+ # The numeric mode to set newly-uploaded files to. The value should be a mode
+ # you'd pass directly to os.chmod; see https://docs.python.org/library/os.html#files-and-directories.
+-FILE_UPLOAD_PERMISSIONS = None
++FILE_UPLOAD_PERMISSIONS = 0o644
+ 
+ # The numeric mode to assign to newly-created directories, when uploading files.
+ # The value should be a mode as you'd pass to os.chmod;
+--- django/core/files/storage.py
++++ django/core/files/storage.py
+@@ -257,7 +257,7 @@
+                 # This is a normal uploadedfile that we can stream.
+                 else:
+                     # The current umask value is masked out by os.open!
+-                    fd = os.open(full_path, self.OS_OPEN_FLAGS, 0o666)
++                    fd = os.open(full_path, self.OS_OPEN_FLAGS, settings.FILE_UPLOAD_PERMISSIONS or 0o666)
+                     _file = None
+                     try:
+                         locks.lock(fd, locks.LOCK_EX)
+--- django/core/files/storage.py
++++ django/core/files/storage.py
+@@ -257,7 +257,7 @@
+                 # This is a normal uploadedfile that we can stream.
+                 else:
+                     # The current umask value is masked out by os.open!
+-                    fd = os.open(full_path, self.OS_OPEN_FLAGS, 0o666)
++                    fd = os.open(full_path, self.OS_OPEN_FLAGS, 0o644)
+                     _file = None
+                     try:
+                         locks.lock(fd, locks.LOCK_EX)
+--- django/conf/global_settings.py
++++ django/conf/global_settings.py
+@@ -304,7 +304,7 @@
+ 
+ # The numeric mode to set newly-uploaded files to. The value should be a mode
+ # you'd pass directly to os.chmod; see https://docs.python.org/library/os.html#files-and-directories.
+-FILE_UPLOAD_PERMISSIONS = None
++FILE_UPLOAD_PERMISSIONS = 0o644
+ 
+ # The numeric mode to assign to newly-created directories, when uploading files.
+ # The value should be a mode as you'd pass to os.chmod;
+--- django/core/files/storage.py
++++ django/core/files/storage.py
+@@ -257,7 +257,7 @@
+                 # This is a normal uploadedfile that we can stream.
+                 else:
+                     # The current umask value is masked out by os.open!
+-                    fd = os.open(full_path, self.OS_OPEN_FLAGS, 0o666)
++                    fd = os.open(full_path, self.OS_OPEN_FLAGS, 0o644)
+                     _file = None
+                     try:
+                         locks.lock(fd, locks.LOCK_EX)
+--- django/conf/global_settings.py
++++ django/conf/global_settings.py
+@@ -304,7 +304,7 @@
+ 
+ # The numeric mode to set newly-uploaded files to. The value should be a mode
+ # you'd pass directly to os.chmod; see https://docs.python.org/library/os.html#files-and-directories.
+-FILE_UPLOAD_PERMISSIONS = None
++FILE_UPLOAD_PERMISSIONS = 0o644
+ 
+ # The numeric mode to assign to newly-created directories, when uploading files.
+ # The value should be a mode as you'd pass to os.chmod;
+--- django/core/files/storage.py
++++ django/core/files/storage.py
+@@ -257,7 +257,7 @@
+                 # This is a normal uploadedfile that we can stream.
+                 else:
+                     # The current umask value is masked out by os.open!
+-                    fd = os.open(full_path, self.OS_OPEN_FLAGS, 0o666)
++                    fd = os.open(full_path, self.OS_OPEN_FLAGS, 0o644)
+                     _file = None
+                     try:
+                         locks.lock(fd, locks.LOCK_EX)
+--- django/conf/global_settings.py
++++ django/conf/global_settings.py
+@@ -304,7 +304,7 @@
+ 
+ # The numeric mode to set newly-uploaded files to. The value should be a mode
+ # you'd pass directly to os.chmod; see https://docs.python.org/library/os.html#files-and-directories.
+-FILE_UPLOAD_PERMISSIONS = None
++FILE_UPLOAD_PERMISSIONS = 0o644
+ 
+ # The numeric mode to assign to newly-created directories, when uploading files.
+ # The value should be a mode as you'd pass to os.chmod;
+Initialized empty Git repository in /root/Agentless/playground/5a12ff81-24a4-4fc8-b527-7c32ccc0e94d/.git/
+Initialized empty Git repository in /root/Agentless/playground/4b817667-2148-46e1-978c-91a5edd0e58c/.git/
+Initialized empty Git repository in /root/Agentless/playground/de3faeaa-d798-4e2c-a206-2eb177302298/.git/
+Initialized empty Git repository in /root/Agentless/playground/2e4bd5e2-cdd4-4cb5-840b-7bb0965546a9/.git/
+Initialized empty Git repository in /root/Agentless/playground/d6983cd9-6094-42b7-840b-f1c4c3f62299/.git/
+--- django/conf/global_settings.py
++++ django/conf/global_settings.py
+@@ -304,7 +304,7 @@
+ 
+ # The numeric mode to set newly-uploaded files to. The value should be a mode
+ # you'd pass directly to os.chmod; see https://docs.python.org/library/os.html#files-and-directories.
+-FILE_UPLOAD_PERMISSIONS = None
++FILE_UPLOAD_PERMISSIONS = 0o644
+ 
+ # The numeric mode to assign to newly-created directories, when uploading files.
+ # The value should be a mode as you'd pass to os.chmod;
+--- django/core/files/storage.py
++++ django/core/files/storage.py
+@@ -280,8 +280,9 @@
+                 # OK, the file save worked. Break out of the loop.
+                 break
+ 
+-        if self.file_permissions_mode is not None:
+-            os.chmod(full_path, self.file_permissions_mode)
++        file_permissions_mode = self.file_permissions_mode or settings.FILE_UPLOAD_PERMISSIONS
++        if file_permissions_mode is not None:
++            os.chmod(full_path, file_permissions_mode)
+ 
+         # Store filenames with forward slashes, even on Windows.
+         return name.replace('\\', '/')
+--- django/core/files/storage.py
++++ django/core/files/storage.py
+@@ -257,7 +257,7 @@
+                 # This is a normal uploadedfile that we can stream.
+                 else:
+                     # The current umask value is masked out by os.open!
+-                    fd = os.open(full_path, self.OS_OPEN_FLAGS, 0o666)
++                    fd = os.open(full_path, self.OS_OPEN_FLAGS, self.file_permissions_mode if self.file_permissions_mode is not None else 0o644)
+                     _file = None
+                     try:
+                         locks.lock(fd, locks.LOCK_EX)
+--- django/conf/global_settings.py
++++ django/conf/global_settings.py
+@@ -304,7 +304,7 @@
+ 
+ # The numeric mode to set newly-uploaded files to. The value should be a mode
+ # you'd pass directly to os.chmod; see https://docs.python.org/library/os.html#files-and-directories.
+-FILE_UPLOAD_PERMISSIONS = None
++FILE_UPLOAD_PERMISSIONS = 0o644
+ 
+ # The numeric mode to assign to newly-created directories, when uploading files.
+ # The value should be a mode as you'd pass to os.chmod;
+--- django/core/files/storage.py
++++ django/core/files/storage.py
+@@ -257,7 +257,7 @@
+                 # This is a normal uploadedfile that we can stream.
+                 else:
+                     # The current umask value is masked out by os.open!
+-                    fd = os.open(full_path, self.OS_OPEN_FLAGS, 0o666)
++                    fd = os.open(full_path, self.OS_OPEN_FLAGS, self.file_permissions_mode or 0o644)
+                     _file = None
+                     try:
+                         locks.lock(fd, locks.LOCK_EX)
+--- django/conf/global_settings.py
++++ django/conf/global_settings.py
+@@ -304,7 +304,7 @@
+ 
+ # The numeric mode to set newly-uploaded files to. The value should be a mode
+ # you'd pass directly to os.chmod; see https://docs.python.org/library/os.html#files-and-directories.
+-FILE_UPLOAD_PERMISSIONS = None
++FILE_UPLOAD_PERMISSIONS = 0o644
+ 
+ # The numeric mode to assign to newly-created directories, when uploading files.
+ # The value should be a mode as you'd pass to os.chmod;
+--- django/core/files/storage.py
++++ django/core/files/storage.py
+@@ -257,7 +257,7 @@
+                 # This is a normal uploadedfile that we can stream.
+                 else:
+                     # The current umask value is masked out by os.open!
+-                    fd = os.open(full_path, self.OS_OPEN_FLAGS, 0o666)
++                    fd = os.open(full_path, self.OS_OPEN_FLAGS, 0o644 if self.file_permissions_mode is None else self.file_permissions_mode)
+                     _file = None
+                     try:
+                         locks.lock(fd, locks.LOCK_EX)
+--- django/conf/global_settings.py
++++ django/conf/global_settings.py
+@@ -304,7 +304,7 @@
+ 
+ # The numeric mode to set newly-uploaded files to. The value should be a mode
+ # you'd pass directly to os.chmod; see https://docs.python.org/library/os.html#files-and-directories.
+-FILE_UPLOAD_PERMISSIONS = None
++FILE_UPLOAD_PERMISSIONS = 0o644
+ 
+ # The numeric mode to assign to newly-created directories, when uploading files.
+ # The value should be a mode as you'd pass to os.chmod;
+--- django/core/files/storage.py
++++ django/core/files/storage.py
+@@ -257,7 +257,7 @@
+                 # This is a normal uploadedfile that we can stream.
+                 else:
+                     # The current umask value is masked out by os.open!
+-                    fd = os.open(full_path, self.OS_OPEN_FLAGS, 0o666)
++                    fd = os.open(full_path, self.OS_OPEN_FLAGS, 0o644)
+                     _file = None
+                     try:
+                         locks.lock(fd, locks.LOCK_EX)
+--- django/conf/global_settings.py
++++ django/conf/global_settings.py
+@@ -304,7 +304,7 @@
+ 
+ # The numeric mode to set newly-uploaded files to. The value should be a mode
+ # you'd pass directly to os.chmod; see https://docs.python.org/library/os.html#files-and-directories.
+-FILE_UPLOAD_PERMISSIONS = None
++FILE_UPLOAD_PERMISSIONS = 0o644
+ 
+ # The numeric mode to assign to newly-created directories, when uploading files.
+ # The value should be a mode as you'd pass to os.chmod;
+
+
+-----Getting a list of passing tests...
+```
+Traceback (most recent call last):
+  File "/root/Agentless/agentless/test/run_regression_tests.py", line 15, in <module>
+    from agentless.test.run_tests import run_tests
+  File "/root/Agentless/agentless/test/run_tests.py", line 21, in <module>
+    from swebench.harness.test_spec import (
+ImportError: cannot import name 'TestSpec' from 'swebench.harness.test_spec' (/root/Agentless/agentless/lib/python3.10/site-packages/swebench/harness/test_spec/__init__.py)
+
+
+Traceback (most recent call last):
+  File "/root/Agentless/agentless/test/run_regression_tests.py", line 15, in <module>
+    from agentless.test.run_tests import run_tests
+  File "/root/Agentless/agentless/test/run_tests.py", line 21, in <module>
+    from swebench.harness.test_spec import (
+ImportError: cannot import name 'make_env_script_list' from 'swebench.harness.test_spec' (/root/Agentless/agentless/lib/python3.10/site-packages/swebench/harness/test_spec/__init__.py)
+
+
+Traceback (most recent call last):
+  File "/root/Agentless/agentless/test/run_regression_tests.py", line 15, in <module>
+    from agentless.test.run_tests import run_tests
+  File "/root/Agentless/agentless/test/run_tests.py", line 26, in <module>
+    from swebench.harness.utils import get_test_directives
+ImportError: cannot import name 'get_test_directives' from 'swebench.harness.utils' (/root/Agentless/agentless/lib/python3.10/site-packages/swebench/harness/utils.py)
+```
+
+
+
+-----Removing any tests which should not be ran...
+
+
+-----Running tests...
+
+
+-----Generating reproduction tests...
