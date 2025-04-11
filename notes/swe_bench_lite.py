@@ -42,15 +42,13 @@ sqlfluff = clone_base_commit(first_dev_row["repo"], first_dev_row["base_commit"]
 print()
 print()
 
-# Let's clone a repo from the test split with a specific id
-id = "matplotlib__matplotlib-18869"
-print(f"Cloning '{id}'...")
-row = next((row for row in test_split if row["instance_id"] == id), None)
-matplotlib = None
-if not row:
-    print(f"Row '{id}' not found in test split.")
-else:
-    matplotlib = clone_base_commit(row["repo"], row["base_commit"], "./matplotlib/")
+# Let's check the contents of a repo from the test split with a specific id
+matplotlib_id = "matplotlib__matplotlib-18869"
+print(f"Checking contents of '{matplotlib_id}'...")
+matplotlib_row = next((row for row in test_split if row["instance_id"] == matplotlib_id), None)
+for key, value in matplotlib_row.items():
+    print(f"-----{key}:-----")
+    print(f"\t{value}\n\n")
 
 print()
 print()
