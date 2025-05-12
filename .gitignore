@@ -1,3 +1,5 @@
 .vscode
 __pycache__/
 .bash_history
+.env
+cloned_repo/
