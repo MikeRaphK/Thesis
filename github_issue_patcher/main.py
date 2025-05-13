@@ -1,5 +1,6 @@
+from langchain_community.callbacks.openai_info import OpenAICallbackHandler
 from langchain_community.tools import ReadFileTool, WriteFileTool, ListDirectoryTool
-from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
+from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_openai import ChatOpenAI
 
 import json
@@ -54,7 +55,8 @@ if __name__ == "__main__":
 
     # Create the graph
     print("Initializing ReAct graph...\n")
-    model = ChatOpenAI(model="gpt-4o-mini", openai_api_key=OPENAI_API_KEY)
+    callback = OpenAICallbackHandler()
+    model = ChatOpenAI(model="gpt-4o-mini", openai_api_key=OPENAI_API_KEY, callbacks=[callback])
     tools = [ReadFileTool(verbose=True), WriteFileTool(verbose=True), ListDirectoryTool(verbose=True)]
     APP = build_graph(tools=tools, llm=model)
 
@@ -88,17 +90,19 @@ if __name__ == "__main__":
     chat_history.append(query)
 
     # Invoke the LLM
-    print("Invoking LLM...\n")
+    print("Invoking LLM...")
     output_state = APP.invoke({"messages" : chat_history})
     content = output_state["messages"][-1].content
     print(f"\n\nChatGPT response: {content}\n")
+    print(f"{callback}\n")
 
     # Create a pull request
     print("Creating pull request...\n")
+    # Remove leading and trailing fences
     content = content.strip()
     if content.startswith("```"):
-        content = re.sub(r"^```(?:json)?\s*", "", content)  # Remove opening fence
-        content = re.sub(r"\s*```$", "", content)          # Remove closing fence
+        content = re.sub(r"^```(?:json)?\s*", "", content)
+        content = re.sub(r"\s*```$", "", content)
     content_json = json.loads(content)
     ghu.create_pr(repo, content_json["commit_msg"], owner, repo_name, GITHUB_TOKEN, content_json["pr_title"], content_json["pr_body"], default_branch)
     print("Pull request created successfully!")    
