@@ -4,7 +4,51 @@ import requests
 import shutil
 
 from git import Repo
-from typing import List, Dict, Tuple
+from requests.adapters import HTTPAdapter
+from typing import Any, List, Dict, Tuple
+from urllib3.util.retry import Retry
+
+def request_get_and_retry(url: str, retries: int = 3, timeout: int = 5, **kwargs: Any) -> requests.Response:
+    """
+    Performs an HTTP GET request with retry and timeout logic.
+
+    Args:
+        url (str): The URL to send the GET request to.
+        retries (int, optional): The number of retry attempts for failed requests. Defaults to 3.
+        timeout (int, optional): Timeout for the request in seconds. Defaults to 5.
+        **kwargs (Any): Additional keyword arguments to pass to requests.get(), such as headers, params, auth, etc.
+
+    Returns:
+        requests.Response: The response object if the request succeeds.
+
+    Raises:
+        Exception: If the request ultimately fails after retries.
+    """
+    
+    # Define the retry strategy
+    retry_strategy = Retry(
+        total=retries,
+        backoff_factor=1,
+        status_forcelist=[429, 500, 502, 503, 504],
+        allowed_methods=["GET"]
+    )
+
+    # Mount the adapter with the retry strategy
+    adapter = HTTPAdapter(max_retries=retry_strategy)
+    http = requests.Session()
+    http.mount("http://", adapter)
+    http.mount("https://", adapter)
+
+    # Use the session to make a GET request with timeout
+    try:
+        response = http.get(url, timeout=timeout, **kwargs)
+        response.raise_for_status()
+        return response
+    except requests.exceptions.RequestException as e:
+        msg = f"Request GET error for {url}"
+        if hasattr(e, 'response') and e.response is not None:
+            msg += f": {e.response.status_code} {e.response.text}"
+        raise Exception(msg) from e
 
 
 def parse_owner_name_default_branch(repo_url: str, GITHUB_TOKEN: str) -> Tuple[str, str, str]:
@@ -25,9 +69,7 @@ def parse_owner_name_default_branch(repo_url: str, GITHUB_TOKEN: str) -> Tuple[s
 
     api_url = f"https://api.github.com/repos/{owner}/{repo}"
     headers = { "Authorization": f"token {GITHUB_TOKEN}", "Accept": "application/vnd.github+json" }
-    response = requests.get(api_url, headers=headers)
-    if response.status_code != 200:
-        raise Exception(f"Failed to get default branch. Error: {response.status_code} {response.text}")
+    response = request_get_and_retry(api_url, headers=headers)
     default_branch = response.json().get("default_branch", "main")
     return owner, repo, default_branch
 
@@ -45,9 +87,7 @@ def get_open_issues(owner: str, name: str) -> List[Dict[str, str]]:
     """
     issues_url = f"https://api.github.com/repos/{owner}/{name}/issues"
     params = {'state': 'open', 'per_page': 100}
-    response = requests.get(issues_url, params=params)
-    if response.status_code != 200:
-        raise Exception(f"Failed to get issues. Error: {response.status_code} {response.text}")
+    response = request_get_and_retry(issues_url, params=params)
     
     # Get title, body and number of each issue while ignoring pull requests
     issues = []
@@ -108,4 +148,4 @@ def create_pr(repo: Repo, commit_msg:str, owner: str, repo_name: str, GITHUB_TOK
     }
     response = requests.post(pr_url, headers=headers, json=data)
     if response.status_code != 201:
-        raise Exception(f"Failed to get default branch. Error: {response.status_code} {response.text}")
+        raise Exception(f"Failed to create pull request. Error: {response.status_code} {response.text}")
